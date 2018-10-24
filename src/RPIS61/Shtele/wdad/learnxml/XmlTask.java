@@ -44,28 +44,30 @@ public class XmlTask {
        }
    }
 
-   public void totalCostVerification(){
+   private void totalCostVerification(){
        NodeList orders = document.getElementsByTagName("order"), items;
        Element order, totalCost;
-       int sum = 0, cost = 0, itemQuantity = 0;
        for(int i = 0; i < orders.getLength(); i++){
            order = (Element)orders.item(i);
-           if(order.getElementsByTagName("totalcost").getLength() == 0){
-               items = order.getElementsByTagName("item");
-               for(int j = 0; j < items.getLength(); j++){
-                   itemQuantity = Integer.parseInt(items.item(j).getTextContent());
-                   cost = Integer.parseInt(((Element)items.item(j)).getAttribute("cost"));
-                   sum += itemQuantity * cost;
-               }
+           if(order.getElementsByTagName("totalcost").getLength() == 0 || order.getElementsByTagName("totalcost").item(0).getTextContent() == null ||
+                   calculatingTotalCost(order) != Integer.parseInt(order.getElementsByTagName("totalcost").item(0).getTextContent())){
                totalCost = document.createElement("totalcost");
-               totalCost.setTextContent(String.valueOf(sum));
+               totalCost.setTextContent(String.valueOf(calculatingTotalCost(order)));
                order.appendChild(totalCost);
                saveXML();
            }
-           else{//?????
-
-           }
        }
+   }
+
+   private int calculatingTotalCost(Element order){
+       int sum = 0, itemQuantity = 0, cost = 0;
+       NodeList items = order.getElementsByTagName("item");
+       for(int j = 0; j < items.getLength(); j++){
+           itemQuantity = Integer.parseInt(items.item(j).getTextContent());
+           cost = Integer.parseInt(((Element)items.item(j)).getAttribute("cost"));
+           sum += itemQuantity * cost;
+       }
+       return sum;
    }
 
    public int earningTotal(String officiantSecondName, Calendar calendar){
@@ -76,7 +78,7 @@ public class XmlTask {
        NodeList officiants = day.getElementsByTagName("officiant");
        for(int i = 0; i < officiants.getLength(); i++){
            officiant = (Element) officiants.item(i);
-           if(officiant.getAttribute("lastName").equals(officiantSecondName)){
+           if(officiant.getAttribute("secondname").equals(officiantSecondName)){
                order = (Element)officiant.getParentNode();
                sum += Integer.parseInt(order.getElementsByTagName("totalcost").item(0).getTextContent());
            }
@@ -90,8 +92,8 @@ public class XmlTask {
        for(int i = 0; i < days.getLength(); i++){
            element = (Element) days.item(i);
            if(Integer.parseInt(element.getAttribute("day")) == calendar.get(Calendar.DATE) &&
-                   element.getAttribute("month").equals(calendar.get(Calendar.MONTH))&&
-                   element.getAttribute("year").equals(calendar.get(Calendar.YEAR))){
+                   Integer.parseInt(element.getAttribute("month")) == calendar.get(Calendar.MONTH) + 1&&
+                   Integer.parseInt(element.getAttribute("year")) == calendar.get(Calendar.YEAR)){
                return element;
            }
        }
@@ -102,7 +104,7 @@ public class XmlTask {
        Element day = findDay(calendar);
        if(day == null)
            return;
-       document.removeChild(day);
+       document.getDocumentElement().removeChild(day);
        saveXML();
    }
 

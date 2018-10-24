@@ -5,13 +5,12 @@
             <officiant firstname="Jon" secondname="Snow"/>
                 <item cost="2" name="soup">3</item>
                 <item cost="6" name="sushi">2</item>
-                <totalcost>18</totalcost>
-        </order>
+</order>
         <order>
-            <officiant firstname="Arthur" secondname="Williams"/>
+            <officiant firstname="qwerty" secondname="asdfg"/>
                 <item cost="6" name="sushi">4</item>
                 <item cost="2" name="soup">6</item>
-                <totalcost>36</totalcost>
+                <totalcost>5</totalcost>
         </order>
     </date>
 </restaurant>
