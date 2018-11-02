@@ -5,10 +5,10 @@ import java.util.Calendar;
 
 public class TestXmlTask {
     public static void main(String[] args){
-        XmlTask xmlTask = new XmlTask("Wrong totalcost");
+        XmlTask xmlTask = new XmlTask("Wrongtotalcost");
         xmlTask.changeOfficiantName("Arthur", "Williams", "qwerty", "asdfg");
 
-        xmlTask = new XmlTask(new File("src\\RPIS61\\Shtele\\wdad\\learnxml\\Xml for date"));
+        xmlTask = new XmlTask(new File("src/RPIS61/Shtele/wdad/learnxml/Xmlfordate"));
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018,0,1);
         xmlTask.removeDay(calendar);

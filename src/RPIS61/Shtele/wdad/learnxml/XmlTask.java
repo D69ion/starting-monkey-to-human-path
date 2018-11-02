@@ -16,13 +16,14 @@ import java.io.IOException;
 import java.util.Calendar;
 
 public class XmlTask {
-    private final String XML_CATALOG = "src\\RPIS61\\Shtele\\wdad\\learnxml\\";
+    private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/learnxml/";
     private Document document;
     private File file;
 
    public XmlTask(String filename){
        try{
            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+           factory.setIgnoringElementContentWhitespace(true);
            DocumentBuilder builder = factory.newDocumentBuilder();
            this.file = new File(XML_CATALOG + filename);
            this.document = builder.parse(this.file);
@@ -49,6 +50,8 @@ public class XmlTask {
        Element order, totalCost;
        for(int i = 0; i < orders.getLength(); i++){
            order = (Element)orders.item(i);
+           //todo order.getElementsByTagName("totalcost") - в переменную сохраняй результат
+           //todo - разные действия - создаешь тэг если его нет, если есть но с не правильным контентом - изменяешь контент
            if(order.getElementsByTagName("totalcost").getLength() == 0 || order.getElementsByTagName("totalcost").item(0).getTextContent() == null ||
                    calculatingTotalCost(order) != Integer.parseInt(order.getElementsByTagName("totalcost").item(0).getTextContent())){
                totalCost = document.createElement("totalcost");
@@ -60,12 +63,13 @@ public class XmlTask {
    }
 
    private int calculatingTotalCost(Element order){
-       int sum = 0, itemQuantity = 0, cost = 0;
+       int sum = 0, cost = 0;
        NodeList items = order.getElementsByTagName("item");
+       Element item;
        for(int j = 0; j < items.getLength(); j++){
-           itemQuantity = Integer.parseInt(items.item(j).getTextContent());
-           cost = Integer.parseInt(((Element)items.item(j)).getAttribute("cost"));
-           sum += itemQuantity * cost;
+           item = (Element)items.item(j);
+           cost = Integer.parseInt(item.getAttribute("cost"));
+           sum += cost;
        }
        return sum;
    }
