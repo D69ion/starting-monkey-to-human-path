@@ -46,18 +46,33 @@ public class XmlTask {
    }
 
    private void totalCostVerification(){
-       NodeList orders = document.getElementsByTagName("order"), items;
+       NodeList orders = document.getElementsByTagName("order");
        Element order, totalCost;
+       NodeList totalCosts;
+       int cost;
        for(int i = 0; i < orders.getLength(); i++){
            order = (Element)orders.item(i);
+           totalCosts = order.getElementsByTagName("totalcost");
            //todo order.getElementsByTagName("totalcost") - в переменную сохраняй результат
            //todo - разные действия - создаешь тэг если его нет, если есть но с не правильным контентом - изменяешь контент
-           if(order.getElementsByTagName("totalcost").getLength() == 0 || order.getElementsByTagName("totalcost").item(0).getTextContent() == null ||
-                   calculatingTotalCost(order) != Integer.parseInt(order.getElementsByTagName("totalcost").item(0).getTextContent())){
+           if(totalCosts.getLength() == 0){
                totalCost = document.createElement("totalcost");
                totalCost.setTextContent(String.valueOf(calculatingTotalCost(order)));
                order.appendChild(totalCost);
                saveXML();
+           }
+           else if(totalCosts.item(0).getTextContent() == null){
+               totalCost = (Element) order.getElementsByTagName("totalcost").item(0);
+               totalCost.setTextContent(String.valueOf(calculatingTotalCost(order)));
+               saveXML();
+           }
+           else{
+               cost = calculatingTotalCost(order);
+               if(Integer.parseInt(totalCosts.item(0).getTextContent()) != cost){
+                   totalCost = (Element) order.getElementsByTagName("totalcost").item(0);
+                   totalCost.setTextContent(String.valueOf(cost));
+                   saveXML();
+               }
            }
        }
    }
