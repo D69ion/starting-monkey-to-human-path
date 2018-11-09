@@ -53,8 +53,6 @@ public class XmlTask {
        for(int i = 0; i < orders.getLength(); i++){
            order = (Element)orders.item(i);
            totalCosts = order.getElementsByTagName("totalcost");
-           //todo order.getElementsByTagName("totalcost") - в переменную сохраняй результат
-           //todo - разные действия - создаешь тэг если его нет, если есть но с не правильным контентом - изменяешь контент
            if(totalCosts.getLength() == 0){
                totalCost = document.createElement("totalcost");
                totalCost.setTextContent(String.valueOf(calculatingTotalCost(order)));
