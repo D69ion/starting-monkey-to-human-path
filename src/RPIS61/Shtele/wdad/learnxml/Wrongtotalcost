@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<restaurant>
+    <date day="1" month="1" year="2018">
+        <order>
+            <officiant firstname="Jon" secondname="Snow"/>
+            <item cost="2" name="soup"/>
+            <item cost="6" name="sushi"/>
+        <totalcost>8</totalcost>
+</order>
+        <order>
+            <officiant firstname="qwerty" secondname="asdfg"/>
+                <item cost="6" name="sushi"/>
+                <item cost="2" name="soup"/>
+                <totalcost>5</totalcost>
+        <totalcost>36</totalcost>
+<totalcost>8</totalcost>
+</order>
+    </date>
+</restaurant>
