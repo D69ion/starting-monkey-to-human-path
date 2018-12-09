@@ -1,4 +1,4 @@
-package RPIS61.Shtele.wdad.learnxml;
+package RPIS61.Shtele.wdad.learn.xml;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Calendar;
 
 public class XmlTask {
-    private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/learnxml/";
+    private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/xml/";
     private Document document;
     private File file;
 

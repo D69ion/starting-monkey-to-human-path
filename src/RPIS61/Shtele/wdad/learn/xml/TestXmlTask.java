@@ -1,4 +1,4 @@
-package RPIS61.Shtele.wdad.learnxml;
+package RPIS61.Shtele.wdad.learn.xml;
 
 import java.io.File;
 import java.util.Calendar;
@@ -8,7 +8,7 @@ public class TestXmlTask {
         XmlTask xmlTask = new XmlTask("Wrongtotalcost");
         xmlTask.changeOfficiantName("Arthur", "Williams", "qwerty", "asdfg");
 
-        xmlTask = new XmlTask(new File("src/RPIS61/Shtele/wdad/learnxml/Xmlfordate"));
+        xmlTask = new XmlTask(new File("src/RPIS61/Shtele/wdad/xml/Xmlfordate"));
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018,0,1);
         xmlTask.removeDay(calendar);
