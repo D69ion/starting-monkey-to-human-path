@@ -1,5 +1,8 @@
 package RPIS61.Shtele.wdad.learn.xml;
 
+import RPIS61.Shtele.wdad.resources.objects.Item;
+import RPIS61.Shtele.wdad.resources.objects.Officiant;
+import RPIS61.Shtele.wdad.resources.objects.Order;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -13,7 +16,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class XmlTask {
     private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/xml/";
@@ -138,6 +143,47 @@ public class XmlTask {
        }
        saveXML();
    }
+
+   public List<Order> getOrders(Calendar day){
+       List<Order> orders = new ArrayList<>();
+       List<Item> items = new ArrayList<>();
+       Element orderElement, officiantElement, itemElement;
+       NodeList ordersList = findDay(day).getElementsByTagName("order"), itemsList;
+       Officiant officiant;
+
+       for(int i = 0; i < ordersList.getLength(); i++){
+           orderElement = (Element) ordersList.item(i);
+           officiantElement = (Element) orderElement.getElementsByTagName("officiant").item(0);
+           officiant = new Officiant(officiantElement.getAttribute("firstname"),
+                   officiantElement.getAttribute("secondname"));
+           itemsList = officiantElement.getElementsByTagName("item");
+           for(int j = 0; j < itemsList.getLength(); j++){
+               itemElement = (Element) itemsList.item(j);
+               items.add(new Item(itemElement.getAttribute("name"), Integer.parseInt(itemElement.getAttribute("cost"))));
+           }
+           orders.add(new Order(officiant, items));
+       }
+       return orders;
+   }
+
+    public Calendar lastOfficiantWorkDate(Officiant officiant){
+       NodeList officiantsList = this.document.getElementsByTagName("officiant");
+       Element tmp;
+       int day, month, year;
+       Calendar calendar = Calendar.getInstance();
+       for(int i = 0; i < officiantsList.getLength(); i++){
+           tmp = (Element) officiantsList.item(i);
+           if(tmp.getAttribute("firstname").equals(officiant.getFirstName()) &&
+                   tmp.getAttribute("secondname").equals(officiant.getSecondName())){
+               tmp = (Element) tmp.getParentNode().getParentNode();
+               day = Integer.parseInt(tmp.getAttribute("day"));
+               month = Integer.parseInt(tmp.getAttribute("month"));
+               year = Integer.parseInt(tmp.getAttribute("year"));
+               calendar.set(year, month, day);
+           }
+       }
+       return calendar;
+    }
 
    private void saveXML(){
        try {

@@ -6,14 +6,13 @@
                 <item cost="2" name="soup"/>
                 <item cost="6" name="sushi"/>
                 <totalcost>8</totalcost>
-        <totalcost>8</totalcost>
-</order>
+        </order>
         <order>
             <officiant firstname="Arthur" secondname="Williams"/>
                 <item cost="6" name="sushi"/>
                 <item cost="2" name="soup"/>
                 <totalcost>8</totalcost>
         <totalcost>8</totalcost>
-</order>
+        </order>
     </date>
 </restaurant>

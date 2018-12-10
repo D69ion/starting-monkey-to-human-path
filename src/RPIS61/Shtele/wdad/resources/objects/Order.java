@@ -5,10 +5,12 @@ import java.util.List;
 public class Order {
     private Officiant officiant;
     private List<Item> items;
+    private int totalCost;
 
     public Order(Officiant officiant, List<Item> items){
         this.items = items;
         this.officiant = officiant;
+        this.totalCost = 0;
     }
 
     public Officiant getOfficiant() {
@@ -25,5 +27,16 @@ public class Order {
 
     public void setItems(List<Item> items) {
         this.items = items;
+        for(int i = 0; i < this.items.size(); i++){
+            totalCost += this.items.get(i).getCost();
+        }
+    }
+
+    public int getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
     }
 }

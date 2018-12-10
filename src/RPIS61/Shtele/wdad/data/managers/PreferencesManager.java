@@ -14,20 +14,17 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.Set;
 
 public class PreferencesManager {
     private final static String XML_PATH = "src\\RPIS61\\Shtele\\wdad\\resources\\configuration\\appconfig.xml";
     private Document document;
     private File file;
     private static PreferencesManager instance;
-    //private XPath xPath;
     private Properties properties;
 
     private PreferencesManager(){
@@ -59,7 +56,6 @@ public class PreferencesManager {
     }
 
     public void setProperties(Properties properties){
-        //properties.stringPropertyNames().forEach(property -> setProperty(property,properties.getProperty(property)));
         for (String p: properties.stringPropertyNames()
              ) {
             setProperty(p, properties.getProperty(p));
