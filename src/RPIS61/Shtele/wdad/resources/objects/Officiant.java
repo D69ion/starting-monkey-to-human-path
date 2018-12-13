@@ -1,6 +1,8 @@
 package RPIS61.Shtele.wdad.resources.objects;
 
-public class Officiant {
+import java.io.Serializable;
+
+public class Officiant implements Serializable{
     private String firstName;
     private String secondName;
 

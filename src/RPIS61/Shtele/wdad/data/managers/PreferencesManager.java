@@ -1,5 +1,6 @@
 package RPIS61.Shtele.wdad.data.managers;
 
+import RPIS61.Shtele.wdad.utils.PreferencesManagerConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -34,9 +35,24 @@ public class PreferencesManager {
             this.file = new File(XML_PATH);
             this.document = builder.parse(this.file);
             this.properties = new Properties();
+            createProperties();
         }
         catch ( IOException | SAXException | ParserConfigurationException e){
             e.printStackTrace();
+        }
+    }
+
+    private void createProperties(){
+        String[] keys = new String[]{PreferencesManagerConstants.createregistry, PreferencesManagerConstants.registryaddress,
+                PreferencesManagerConstants.registryport, PreferencesManagerConstants.policypath,
+                PreferencesManagerConstants.usecodebaseonly, PreferencesManagerConstants.classprovider};
+        String value, key;
+        String[] keyParts;
+        for(int i = 0; i < keys.length; i++){
+            keyParts = keys[i].split("\\.");
+            key = keyParts[keyParts.length - 1];
+            value = document.getElementsByTagName(key).item(0).getTextContent();
+            properties.setProperty(keys[i], value);
         }
     }
 

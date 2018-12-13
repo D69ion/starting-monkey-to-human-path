@@ -42,7 +42,7 @@ public class Client {
         }
     }
 
-    private static void testRMI(XmlDataManager xmlDataManager){
+    private static void testRMI(XmlDataManager xmlDataManager)throws RemoteException{
         Calendar date = Calendar.getInstance();
         date.set(2018, Calendar.DECEMBER, 10);
         List<Order> orderList = xmlDataManager.getOrders(date);

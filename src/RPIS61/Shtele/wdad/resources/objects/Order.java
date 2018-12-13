@@ -1,8 +1,9 @@
 package RPIS61.Shtele.wdad.resources.objects;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable{
     private Officiant officiant;
     private List<Item> items;
     private int totalCost;

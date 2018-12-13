@@ -8,12 +8,17 @@ import RPIS61.Shtele.wdad.resources.objects.Order;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.io.File;
 
 public class XmlDataManagerImpl implements XmlDataManager, Serializable {
     private XmlTask restaurant;
 
     public XmlDataManagerImpl(String fileName){
         this.restaurant = new XmlTask(fileName);
+    }
+
+    public XmlDataManagerImpl(File file){
+        this.restaurant = new XmlTask(file);
     }
 
     @Override

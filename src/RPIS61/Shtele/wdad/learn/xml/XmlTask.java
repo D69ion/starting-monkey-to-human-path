@@ -111,7 +111,7 @@ public class XmlTask implements Serializable{
        for(int i = 0; i < days.getLength(); i++){
            element = (Element) days.item(i);
            if(Integer.parseInt(element.getAttribute("day")) == calendar.get(Calendar.DATE) &&
-                   Integer.parseInt(element.getAttribute("month")) == calendar.get(Calendar.MONTH) + 1&&
+                   Integer.parseInt(element.getAttribute("month")) == calendar.get(Calendar.MONTH) &&
                    Integer.parseInt(element.getAttribute("year")) == calendar.get(Calendar.YEAR)){
                return element;
            }
@@ -121,10 +121,13 @@ public class XmlTask implements Serializable{
 
    public void removeDay(Calendar calendar){
        Element day = findDay(calendar);
-       if(day == null)
+       if(day == null){
+           System.out.println("0");
            return;
+       }
        document.getDocumentElement().removeChild(day);
        saveXML();
+       System.out.println("1");
    }
 
    public void changeOfficiantName(String oldFirstName, String oldSecondName,
