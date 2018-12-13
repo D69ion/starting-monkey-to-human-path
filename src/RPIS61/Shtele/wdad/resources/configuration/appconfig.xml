@@ -25,7 +25,7 @@ directory or *jar file, or URL to *.jar file, containing *.class files -->
         <server>
             <registry>
                 <createregistry>yes</createregistry>
-                <registryaddress>localhost</registryaddress>
+                <registryaddress>46.0.164.135</registryaddress>
                 <registryport>1099</registryport>
             </registry>
         </server>

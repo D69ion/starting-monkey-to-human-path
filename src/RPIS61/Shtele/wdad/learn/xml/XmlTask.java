@@ -12,15 +12,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class XmlTask {
+public class XmlTask implements Serializable{
     private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/xml/";
     private Document document;
     private File file;

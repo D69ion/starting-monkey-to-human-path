@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <restaurant>
-    <date day="1" month="1" year="2018">
+    <date day="10" month="11" year="2018">
         <order>
             <officiant firstname="Jon" secondname="Snow"/>
                 <item cost="2" name="soup"/>
@@ -13,6 +13,11 @@
                 <item cost="2" name="soup"/>
                 <totalcost>8</totalcost>
         <totalcost>8</totalcost>
+        </order>
+        <order>
+            <officiant firstname="Adam" secondname="Johnson"/>
+            <item cost="3" name="apple"/>
+            <item cost="4" name="bread"/>
         </order>
     </date>
 </restaurant>

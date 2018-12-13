@@ -24,4 +24,9 @@ public class Officiant {
     public void setSecondName(String secondName) {
         this.secondName = secondName;
     }
+
+    @Override
+    public String toString() {
+        return firstName + ' ' + secondName;
+    }
 }

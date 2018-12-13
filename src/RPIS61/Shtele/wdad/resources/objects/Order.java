@@ -39,4 +39,9 @@ public class Order {
     public void setTotalCost(int totalCost) {
         this.totalCost = totalCost;
     }
+
+    @Override
+    public String toString() {
+        return officiant.toString() + ", order cost: " + totalCost;
+    }
 }

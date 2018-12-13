@@ -5,10 +5,11 @@ import RPIS61.Shtele.wdad.learn.xml.XmlTask;
 import RPIS61.Shtele.wdad.resources.objects.Officiant;
 import RPIS61.Shtele.wdad.resources.objects.Order;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-public class XmlDataManagerImpl implements XmlDataManager {
+public class XmlDataManagerImpl implements XmlDataManager, Serializable {
     private XmlTask restaurant;
 
     public XmlDataManagerImpl(String fileName){
