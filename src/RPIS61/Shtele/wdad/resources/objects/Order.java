@@ -28,9 +28,6 @@ public class Order implements Serializable{
 
     public void setItems(List<Item> items) {
         this.items = items;
-        for(int i = 0; i < this.items.size(); i++){
-            totalCost += this.items.get(i).getCost();
-        }
     }
 
     public int getTotalCost() {
@@ -43,6 +40,6 @@ public class Order implements Serializable{
 
     @Override
     public String toString() {
-        return officiant.toString() + ", order cost: " + totalCost;
+        return officiant.toString();
     }
 }

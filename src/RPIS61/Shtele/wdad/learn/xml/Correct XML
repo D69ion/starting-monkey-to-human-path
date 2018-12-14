@@ -12,7 +12,6 @@
             <item cost="6" name="sushi"/>
             <item cost="2" name="soup"/>
             <totalcost>8</totalcost>
-            <totalcost>8</totalcost>
         </order>
         <order>
             <officiant firstname="Adam" secondname="Johnson"/>

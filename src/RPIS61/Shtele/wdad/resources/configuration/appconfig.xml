@@ -7,8 +7,6 @@
                 <registryaddress>127.0.0.1</registryaddress>
                 <registryport>1099</registryport>
             </registry>
-<bindedobject class="class RPIS61.Shtele.wdad.learn.rmi.server.XmlDataManagerImpl" name="XmlDataManager"/>
-<bindedobject class="class RPIS61.Shtele.wdad.learn.rmi.server.XmlDataManagerImpl" name="XmlDataManager"/>
 </server>
         <client>
             <policypath>src/RPIS61/Shtele/wdad/resources/configuration/client.policy</policypath>
