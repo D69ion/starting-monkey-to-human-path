@@ -1,5 +1,8 @@
-package RPIS61.Shtele.wdad.learnxml;
+package RPIS61.Shtele.wdad.learn.xml;
 
+import RPIS61.Shtele.wdad.resources.objects.Item;
+import RPIS61.Shtele.wdad.resources.objects.Officiant;
+import RPIS61.Shtele.wdad.resources.objects.Order;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -9,14 +12,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-public class XmlTask {
-    private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/learnxml/";
+public class XmlTask implements Serializable{
+    private final String XML_CATALOG = "src/RPIS61/Shtele/wdad/xml/";
     private Document document;
     private File file;
 
@@ -109,7 +111,7 @@ public class XmlTask {
        for(int i = 0; i < days.getLength(); i++){
            element = (Element) days.item(i);
            if(Integer.parseInt(element.getAttribute("day")) == calendar.get(Calendar.DATE) &&
-                   Integer.parseInt(element.getAttribute("month")) == calendar.get(Calendar.MONTH) + 1&&
+                   Integer.parseInt(element.getAttribute("month")) == calendar.get(Calendar.MONTH) &&
                    Integer.parseInt(element.getAttribute("year")) == calendar.get(Calendar.YEAR)){
                return element;
            }
@@ -119,10 +121,13 @@ public class XmlTask {
 
    public void removeDay(Calendar calendar){
        Element day = findDay(calendar);
-       if(day == null)
+       if(day == null){
+           System.out.println("0");
            return;
+       }
        document.getDocumentElement().removeChild(day);
        saveXML();
+       System.out.println("1");
    }
 
    public void changeOfficiantName(String oldFirstName, String oldSecondName,
@@ -138,6 +143,47 @@ public class XmlTask {
        }
        saveXML();
    }
+
+   public List<Order> getOrders(Calendar day){
+       List<Order> orders = new ArrayList<>();
+       List<Item> items = new ArrayList<>();
+       Element orderElement, officiantElement, itemElement;
+       NodeList ordersList = findDay(day).getElementsByTagName("order"), itemsList;
+       Officiant officiant;
+
+       for(int i = 0; i < ordersList.getLength(); i++){
+           orderElement = (Element) ordersList.item(i);
+           officiantElement = (Element) orderElement.getElementsByTagName("officiant").item(0);
+           officiant = new Officiant(officiantElement.getAttribute("firstname"),
+                   officiantElement.getAttribute("secondname"));
+           itemsList = officiantElement.getElementsByTagName("item");
+           for(int j = 0; j < itemsList.getLength(); j++){
+               itemElement = (Element) itemsList.item(j);
+               items.add(new Item(itemElement.getAttribute("name"), Integer.parseInt(itemElement.getAttribute("cost"))));
+           }
+           orders.add(new Order(officiant, items));
+       }
+       return orders;
+   }
+
+    public Calendar lastOfficiantWorkDate(Officiant officiant){
+       NodeList officiantsList = this.document.getElementsByTagName("officiant");
+       Element tmp;
+       int day, month, year;
+       Calendar calendar = Calendar.getInstance();
+       for(int i = 0; i < officiantsList.getLength(); i++){
+           tmp = (Element) officiantsList.item(i);
+           if(tmp.getAttribute("firstname").equals(officiant.getFirstName()) &&
+                   tmp.getAttribute("secondname").equals(officiant.getSecondName())){
+               tmp = (Element) tmp.getParentNode().getParentNode();
+               day = Integer.parseInt(tmp.getAttribute("day"));
+               month = Integer.parseInt(tmp.getAttribute("month"));
+               year = Integer.parseInt(tmp.getAttribute("year"));
+               calendar.set(year, month, day);
+           }
+       }
+       return calendar;
+    }
 
    private void saveXML(){
        try {

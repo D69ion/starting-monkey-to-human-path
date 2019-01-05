@@ -1,5 +1,6 @@
 package RPIS61.Shtele.wdad.data.managers;
 
+import RPIS61.Shtele.wdad.utils.PreferencesManagerConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -14,20 +15,17 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.xpath.XPath;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.Set;
 
 public class PreferencesManager {
     private final static String XML_PATH = "src\\RPIS61\\Shtele\\wdad\\resources\\configuration\\appconfig.xml";
     private Document document;
     private File file;
     private static PreferencesManager instance;
-    //private XPath xPath;
     private Properties properties;
 
     private PreferencesManager(){
@@ -37,9 +35,24 @@ public class PreferencesManager {
             this.file = new File(XML_PATH);
             this.document = builder.parse(this.file);
             this.properties = new Properties();
+            createProperties();
         }
         catch ( IOException | SAXException | ParserConfigurationException e){
             e.printStackTrace();
+        }
+    }
+
+    private void createProperties(){
+        String[] keys = new String[]{PreferencesManagerConstants.createregistry, PreferencesManagerConstants.registryaddress,
+                PreferencesManagerConstants.registryport, PreferencesManagerConstants.policypath,
+                PreferencesManagerConstants.usecodebaseonly, PreferencesManagerConstants.classprovider};
+        String value, key;
+        String[] keyParts;
+        for(int i = 0; i < keys.length; i++){
+            keyParts = keys[i].split("\\.");
+            key = keyParts[keyParts.length - 1];
+            value = document.getElementsByTagName(key).item(0).getTextContent();
+            properties.setProperty(keys[i], value);
         }
     }
 
@@ -59,7 +72,6 @@ public class PreferencesManager {
     }
 
     public void setProperties(Properties properties){
-        //properties.stringPropertyNames().forEach(property -> setProperty(property,properties.getProperty(property)));
         for (String p: properties.stringPropertyNames()
              ) {
             setProperty(p, properties.getProperty(p));
