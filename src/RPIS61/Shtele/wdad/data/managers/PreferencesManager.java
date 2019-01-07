@@ -43,9 +43,14 @@ public class PreferencesManager {
     }
 
     private void createProperties(){
-        String[] keys = new String[]{PreferencesManagerConstants.createregistry, PreferencesManagerConstants.registryaddress,
+        String[] keys = new String[]{
+                PreferencesManagerConstants.createregistry, PreferencesManagerConstants.registryaddress,
                 PreferencesManagerConstants.registryport, PreferencesManagerConstants.policypath,
-                PreferencesManagerConstants.usecodebaseonly, PreferencesManagerConstants.classprovider};
+                PreferencesManagerConstants.usecodebaseonly, PreferencesManagerConstants.classprovider,
+                PreferencesManagerConstants.classname, PreferencesManagerConstants.drivertype,
+                PreferencesManagerConstants.hostname, PreferencesManagerConstants.port,
+                PreferencesManagerConstants.dbname, PreferencesManagerConstants.user,
+                PreferencesManagerConstants.password};
         String value, key;
         String[] keyParts;
         for(int i = 0; i < keys.length; i++){

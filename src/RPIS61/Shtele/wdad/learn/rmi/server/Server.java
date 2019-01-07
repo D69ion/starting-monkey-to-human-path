@@ -1,7 +1,7 @@
 package RPIS61.Shtele.wdad.learn.rmi.server;
 
 import RPIS61.Shtele.wdad.data.managers.PreferencesManager;
-import RPIS61.Shtele.wdad.learn.rmi.XmlDataManager;
+import RPIS61.Shtele.wdad.data.managers.DataManager;
 import RPIS61.Shtele.wdad.utils.PreferencesManagerConstants;
 
 import java.io.File;
@@ -41,10 +41,10 @@ public class Server {
 
             XmlDataManagerImpl xmlDataManager = new XmlDataManagerImpl(new File("src/RPIS61/Shtele/wdad/learn/xml/Correct XML"));
 
-            XmlDataManager stub = (XmlDataManager) UnicastRemoteObject.exportObject(xmlDataManager, 0);
+            DataManager stub = (DataManager) UnicastRemoteObject.exportObject(xmlDataManager, 0);
             System.out.println("Binding object");
-            registry.bind("XmlDataManager", xmlDataManager);
-            manager.addBindedObject("XmlDataManager", xmlDataManager.getClass().toString());
+            registry.bind("DataManager", xmlDataManager);
+            manager.addBindedObject("DataManager", xmlDataManager.getClass().toString());
         } catch (RemoteException | AlreadyBoundException e) {
             System.out.println("Server crashed");
             e.printStackTrace();

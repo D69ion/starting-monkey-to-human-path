@@ -1,6 +1,6 @@
 package RPIS61.Shtele.wdad.learn.rmi.server;
 
-import RPIS61.Shtele.wdad.learn.rmi.XmlDataManager;
+import RPIS61.Shtele.wdad.data.managers.DataManager;
 import RPIS61.Shtele.wdad.learn.xml.XmlTask;
 import RPIS61.Shtele.wdad.resources.objects.Officiant;
 import RPIS61.Shtele.wdad.resources.objects.Order;
@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.io.File;
 
-public class XmlDataManagerImpl implements XmlDataManager, Serializable {
+public class XmlDataManagerImpl implements DataManager, Serializable {
     private XmlTask restaurant;
 
     public XmlDataManagerImpl(String fileName){

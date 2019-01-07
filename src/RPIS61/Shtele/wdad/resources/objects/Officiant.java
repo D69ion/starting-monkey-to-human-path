@@ -31,4 +31,12 @@ public class Officiant implements Serializable{
     public String toString() {
         return firstName + ' ' + secondName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(!(obj instanceof Officiant)) return false;
+        Officiant officiant = (Officiant) obj;
+        return this.firstName.equals(officiant.firstName) && this.secondName.equals(officiant.secondName);
+    }
 }

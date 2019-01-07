@@ -1,7 +1,7 @@
 package RPIS61.Shtele.wdad.learn.rmi.client;
 
 import RPIS61.Shtele.wdad.data.managers.PreferencesManager;
-import RPIS61.Shtele.wdad.learn.rmi.XmlDataManager;
+import RPIS61.Shtele.wdad.data.managers.DataManager;
 import RPIS61.Shtele.wdad.resources.objects.Order;
 import RPIS61.Shtele.wdad.utils.PreferencesManagerConstants;
 
@@ -33,19 +33,19 @@ public class Client {
             int port = Integer.parseInt(manager.getProperty(PreferencesManagerConstants.registryport));
             String address = manager.getProperty(PreferencesManagerConstants.registryaddress);
             registry = LocateRegistry.getRegistry(address, port);
-            XmlDataManager xmlDataManager = (XmlDataManager) registry.lookup("XmlDataManager");
+            DataManager dataManager = (DataManager) registry.lookup("DataManager");
             System.out.println("object lookup");
-            testRMI(xmlDataManager);
+            testRMI(dataManager);
         } catch (RemoteException | NotBoundException e) {
             System.out.println("Client crashed");
             e.printStackTrace();
         }
     }
 
-    private static void testRMI(XmlDataManager xmlDataManager)throws RemoteException{
+    private static void testRMI(DataManager dataManager)throws RemoteException{
         Calendar date = Calendar.getInstance();
         date.set(2018, Calendar.DECEMBER, 10);
-        List<Order> orderList = xmlDataManager.getOrders(date);
+        List<Order> orderList = dataManager.getOrders(date);
         for(int i = 0; i < orderList.size(); i++){
             System.out.println(orderList.get(i).toString());
         }

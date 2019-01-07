@@ -11,7 +11,17 @@ public class Order implements Serializable{
     public Order(Officiant officiant, List<Item> items){
         this.items = items;
         this.officiant = officiant;
-        this.totalCost = 0;
+        this.totalCost = calculateTotalCost();
+    }
+
+    private int calculateTotalCost(){
+        if(this.items.size() == 0)
+            return 0;
+        int sum = 0;
+        for(int i = 0; i < this.items.size(); i++){
+            sum += this.items.get(i).getCost();
+        }
+        return sum;
     }
 
     public Officiant getOfficiant() {

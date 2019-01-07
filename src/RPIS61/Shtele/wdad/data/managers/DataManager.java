@@ -1,4 +1,4 @@
-package RPIS61.Shtele.wdad.learn.rmi;
+package RPIS61.Shtele.wdad.data.managers;
 
 import RPIS61.Shtele.wdad.resources.objects.*;
 
@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.List;
 
-public interface XmlDataManager extends Remote{
+public interface DataManager extends Remote{
     public int earningTotal(Officiant officiant, Calendar date)throws RemoteException;
     public void removeDay(Calendar date)throws RemoteException;
     public void changeOfficiantName(Officiant oldOfficiant, Officiant newOfficiant)throws RemoteException;

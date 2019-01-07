@@ -7,6 +7,7 @@
                 <registryaddress>127.0.0.1</registryaddress>
                 <registryport>1099</registryport>
             </registry>
+<bindedobject class="class RPIS61.Shtele.wdad.learn.rmi.server.XmlDataManagerImpl" name="DataManager"/>
 </server>
         <client>
             <policypath>src/RPIS61/Shtele/wdad/resources/configuration/client.policy</policypath>
@@ -14,4 +15,13 @@
         </client>
         <classprovider>http://www.yourhost.free.ru/cp/cp.jar</classprovider>
     </rmi>
+    <datasource>
+        <classname>com.mysql.cj.jdbc.MysqlDataSource</classname>
+        <drivertype>mysql</drivertype>
+        <hostname>localhost</hostname>
+        <port>3306</port>
+        <dbname>restaurant</dbname>
+        <user>root</user>
+        <pass/>
+    </datasource>
 </appconfig>
